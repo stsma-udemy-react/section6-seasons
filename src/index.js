@@ -1,25 +1,21 @@
 import { render } from '@testing-library/react';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import SeasonDisplay from './SeasonDisplay';
 
 class App extends React.Component{
-    constructor(props){
-        super(props);
+    state = { lat: null, errorMessage: ''}
 
-        this.state={
-            lat: null,
-            errorMessage: ''
-        }
+    componentDidMount() {
 
         window.navigator.geolocation.getCurrentPosition(
-            (position) => {
-                this.setState({lat: position.coords.latitude})
-            },
-            (error) => {
-                console.log(error);
-                this.setState({errorMessage: error.message});
-            }
+            position => this.setState({lat: position.coords.latitude}),
+            error => this.setState({errorMessage: error.message})
         );
+    }
+
+    componentDidUpdate(){
+        console.log("My component was just updated - it rerendered!");
     }
 
     render(){
@@ -27,7 +23,7 @@ class App extends React.Component{
             <div>{this.state.errorMessage && !this.state.lat ? 
                 'Error ' + this.state.errorMessage : 
                 !this.state.errorMessage && this.state.lat ?
-                    'Latitude: ' + this.state.lat : 'loading...'} </div>
+                    <SeasonDisplay lat={this.state.lat}/> : 'loading...'} </div>
         )
     }
 }
