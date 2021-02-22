@@ -8,11 +8,11 @@ const getSeason = (lat, month) => {
 }
 
 const seasonConfig = {
-    winter: {
+    summer: {
         text: "Let's hit the beach.",
         iconName: "sun"
     },
-    summer: {
+    winter: {
         text: "Burr, it's chilly",
         iconName: "snowflake"
     } 
